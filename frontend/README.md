@@ -7,13 +7,17 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-to add:
+main:
 
-- remove comments
+- import images
+- pagination (load more)
+
+to add (extra):
+
 - add a icon instead of the vite icon
 - landing page with pokeball animation
-- load more pagination
-- when searching have cards show up instead of the table maybe
 - add animation to literally everything
-- add tooltips to the header row to explain what each thing represents (dk if this will work alongside hover highlight effect on header row)
 - caching https://www.freecodecamp.org/news/caching-in-react/
+- look into apollo caching and polling
+- pikachu loading animation on loading state for usequery hook
+- add bookmarking feature to save pokemon and then when looking at pokemon saved show in cards format?

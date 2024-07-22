@@ -1,0 +1,106 @@
+.pokemon-image {
+  width: 50px;
+  height: auto;
+  display: flex;
+  align-items: center; /* Center align items vertically */
+  margin-top: 5px;
+}
+
+.id-img {
+  display: flex;
+  align-items: center; /* Center align items vertically */
+  justify-content: flex-start; /* Align items to the start horizontally */
+  text-align: left; /* Align text to the left */
+  vertical-align: middle;
+}
+
+.id-img img {
+  height: 75px;
+  width: 75px;
+  margin-right: 5px; /* Add some space between the image and the number */
+}
+
+.id-img p {
+  margin: 0; /* Remove default margin to ensure alignment */
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 60px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the image */
+  left: 50%;
+  margin-left: -30px; /* Center the tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent; /* Arrow pointing down */
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.type-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+}
+
+/* Ensure proper spacing for the image column */
+.pokemon-image {
+  width: 75px; /* Width for image column */
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure the image itself is properly sized */
+.pokemon-image img {
+  height: 75px;
+  width: 75px;
+  float: right; /* Float the image to the right */
+}
+
+/* General table styling */
+/* General table styling */
+.main-table {
+  border-spacing: 35px; /* Space between all columns */
+}
+
+/* Adjust spacing for the first row */
+.main-table thead th {
+  padding-right: 35px; /* Default padding for all headers */
+}
+
+.main-table thead tr:first-child th {
+  padding-right: px; /* Adjusted padding for the first row */
+}
+
+/* Ensure no extra spacing for the imgs column */
+.main-table th.imgs,
+.main-table td.imgs {
+  padding-right: 0; /* Remove padding on the right side of imgs column */
+}
