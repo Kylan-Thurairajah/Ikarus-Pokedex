@@ -1,29 +1,124 @@
-.pokemon-image {
-  width: 50px;
-  height: auto;
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.page-container {
   display: flex;
-  align-items: center; /* Center align items vertically */
-  margin-top: 5px;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
 }
 
-.id-img {
+.side-content {
+  width: 10%;
+  background-image: url("../../public/img/grass.jpg");
+  background-repeat: repeat;
+  background-size: 29px;
+  background-position: center;
+}
+
+.main-content {
   display: flex;
-  align-items: center; /* Center align items vertically */
-  justify-content: flex-start; /* Align items to the start horizontally */
-  text-align: left; /* Align text to the left */
-  vertical-align: middle;
+  flex-direction: column;
+  width: 80%;
+  background-color: #74c7a1;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
-.id-img img {
-  height: 75px;
-  width: 75px;
-  margin-right: 5px; /* Add some space between the image and the number */
+.main-table {
+  width: 100%;
 }
 
-.id-img p {
-  margin: 0; /* Remove default margin to ensure alignment */
+.logo-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 10vh; /* Adjust as needed */
 }
 
+.search-filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0; /* Add margin for spacing */
+}
+
+.search-input {
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  outline: none;
+  font-size: 16px;
+  width: 230px; /* Adjust width as needed */
+  height: 25px;
+  border-radius: 10px; /* Make the corners rounded */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:hover {
+  border-color: green;
+  cursor: pointer;
+}
+
+.search-input:focus {
+  border-color: rgb(28, 189, 28);
+  box-shadow: 0 0 30px #a0e0a0;
+}
+
+.filter-label {
+  margin-left: 10px; /* Add some space between search input and filter label */
+  margin-right: 10px;
+}
+
+.filter-select {
+  padding: 5px;
+  border-radius: 5px;
+  height: 45px;
+  width: 80px;
+}
+
+.types-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.type-label {
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.type-label:hover {
+  border-color: green;
+}
+
+.type-input:focus + .type-label {
+  border-color: green;
+  box-shadow: 0 0 5px #a0e0a0;
+}
+
+/* Error Styles (assuming you add a class 'error' on error state) */
+.type-label.error:hover {
+  border-color: red;
+}
+
+.type-input.error:focus + .type-label {
+  border-color: red;
+  box-shadow: 0 0 5px #ff8a8a;
+}
+
+/* Tooltip CSS */
 .tooltip {
   position: relative;
   display: inline-block;
@@ -39,9 +134,10 @@
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Position above the image */
+  bottom: 100%; /* Position above the image */
   left: 50%;
-  margin-left: -30px; /* Center the tooltip */
+  transform: translateX(-50%);
+  margin-bottom: 10px; /* Add some space between the image and the tooltip */
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -51,7 +147,7 @@
   position: absolute;
   top: 100%; /* Bottom of the tooltip */
   left: 50%;
-  margin-left: -5px;
+  transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
   border-color: black transparent transparent transparent; /* Arrow pointing down */
@@ -68,39 +164,57 @@
   margin-right: 4px;
 }
 
-/* Ensure proper spacing for the image column */
-.pokemon-image {
-  width: 75px; /* Width for image column */
-  height: 75px;
+.id-img {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  text-align: left;
+  vertical-align: middle;
 }
 
-/* Ensure the image itself is properly sized */
+.id-img img {
+  height: 200px; /* Increase image height */
+  width: 100px; /* Increase image width */
+  margin-right: 5px;
+}
+
+.id-img p {
+  margin: 0;
+}
+
+.header-spacing {
+  padding-right: 30px;
+  text-align: left;
+}
+
+.header-spacing,
+.pokemon-image {
+  padding: 5px; /* Reduce padding to bring image closer to the table body */
+  text-align: left;
+}
+
+.header-spacing p,
 .pokemon-image img {
-  height: 75px;
-  width: 75px;
-  float: right; /* Float the image to the right */
+  margin: 0;
 }
 
-/* General table styling */
-/* General table styling */
-.main-table {
-  border-spacing: 35px; /* Space between all columns */
+h1 {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-/* Adjust spacing for the first row */
-.main-table thead th {
-  padding-right: 35px; /* Default padding for all headers */
+th {
+  background-color: #04aa6d;
+  color: white;
+}
+/* Add transition to table rows for a smoother and faster background color change */
+tr {
+  padding: 10px 0; /* Add padding to create more space around the content */
+  position: relative; /* Ensure positioning context */
+  z-index: 1;
+  transition: background-color 0.2s ease;
 }
 
-.main-table thead tr:first-child th {
-  padding-right: px; /* Adjusted padding for the first row */
-}
-
-/* Ensure no extra spacing for the imgs column */
-.main-table th.imgs,
-.main-table td.imgs {
-  padding-right: 0; /* Remove padding on the right side of imgs column */
+tr:hover {
+  background-color: #5eb18c; /* Desired background color on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
 }
