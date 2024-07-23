@@ -60,12 +60,29 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: (parent, args) => {
         const pokemon = data.find((p) => p.id === args.id)
-        return pokemon ? { ...pokemon, base: { ...pokemon.base } } : null
+        return pokemon
+          ? {
+              ...pokemon,
+              base: {
+                ...pokemon.base,
+                SpAttack: pokemon.base["Sp. Attack"],
+                SpDefense: pokemon.base["Sp. Defense"],
+              },
+            }
+          : null
       },
     },
     pokemons: {
       type: new GraphQLList(PokemonType),
-      resolve: () => data,
+      resolve: () =>
+        data.map((pokemon) => ({
+          ...pokemon,
+          base: {
+            ...pokemon.base,
+            SpAttack: pokemon.base["Sp. Attack"],
+            SpDefense: pokemon.base["Sp. Defense"],
+          },
+        })),
     },
   },
 })

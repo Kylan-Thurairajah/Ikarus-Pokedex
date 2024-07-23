@@ -1,46 +1,56 @@
-html,
-body,
-#root {
+body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
+  background: url("../../public/img/grass.jpg") repeat;
+  background-size: 29px;
+  background-attachment: fixed;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
 .page-container {
   display: flex;
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
+  width: 100%;
+  flex-grow: 1;
 }
 
 .side-content {
+  display: flex;
+  flex-direction: column;
   width: 10%;
-  background-image: url("../../public/img/grass.jpg");
-  background-repeat: repeat;
-  background-size: 29px;
-  background-position: center;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .main-content {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%; /* Adjust width if needed */
   background-color: #74c7a1;
-  height: 100vh;
   box-sizing: border-box;
-  overflow: auto;
+  flex-grow: 1;
 }
 
 .main-table {
-  width: 100%;
+  width: calc(100% - 40px); /* Adjust for spacing if needed */
+  margin: 0 auto; /* Center the table */
+  border-collapse: collapse; /* Remove gaps between cells */
 }
 
 .logo-container {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 10vh; /* Adjust as needed */
+  justify-content: center;
+  align-items: center;
+  height: 15vh;
 }
 
 .search-filter-container {
@@ -48,7 +58,7 @@ body,
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 20px 0; /* Add margin for spacing */
+  margin: 20px 0;
 }
 
 .search-input {
@@ -56,9 +66,9 @@ body,
   padding: 10px 20px;
   outline: none;
   font-size: 16px;
-  width: 230px; /* Adjust width as needed */
+  width: 230px;
   height: 25px;
-  border-radius: 10px; /* Make the corners rounded */
+  border-radius: 10px;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -73,8 +83,7 @@ body,
 }
 
 .filter-label {
-  margin-left: 10px; /* Add some space between search input and filter label */
-  margin-right: 10px;
+  margin: 0 10px; /* Space between search input and filter label */
 }
 
 .filter-select {
@@ -108,7 +117,7 @@ body,
   box-shadow: 0 0 5px #a0e0a0;
 }
 
-/* Error Styles (assuming you add a class 'error' on error state) */
+/* Error styles */
 .type-label.error:hover {
   border-color: red;
 }
@@ -118,7 +127,7 @@ body,
   box-shadow: 0 0 5px #ff8a8a;
 }
 
-/* Tooltip CSS */
+/* Tooltip styles */
 .tooltip {
   position: relative;
   display: inline-block;
@@ -134,10 +143,10 @@ body,
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 100%; /* Position above the image */
+  bottom: 100%; /* Position above the tooltip trigger */
   left: 50%;
   transform: translateX(-50%);
-  margin-bottom: 10px; /* Add some space between the image and the tooltip */
+  margin-bottom: 10px;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -145,7 +154,7 @@ body,
 .tooltip .tooltiptext::after {
   content: "";
   position: absolute;
-  top: 100%; /* Bottom of the tooltip */
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   border-width: 5px;
@@ -167,15 +176,12 @@ body,
 .id-img {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  text-align: left;
-  vertical-align: middle;
 }
 
 .id-img img {
-  height: 200px; /* Increase image height */
-  width: 100px; /* Increase image width */
-  margin-right: 5px;
+  height: 8vh;
+  width: 5vw;
+  margin-left: 5px;
 }
 
 .id-img p {
@@ -183,13 +189,7 @@ body,
 }
 
 .header-spacing {
-  padding-right: 30px;
-  text-align: left;
-}
-
-.header-spacing,
-.pokemon-image {
-  padding: 5px; /* Reduce padding to bring image closer to the table body */
+  padding: 1.7vh; /* Adjusted padding */
   text-align: left;
 }
 
@@ -198,23 +198,115 @@ body,
   margin: 0;
 }
 
-h1 {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+.pixelify-sans-title {
+  font-family: "Pixelify Sans", sans-serif;
+  font-weight: 700; /* Bold weight */
+  font-size: calc(3rem + 2vw); /* Responsive font size */
+  color: #edf2ed;
+  padding: 15% 0 15% 0;
 }
 
 th {
   background-color: #04aa6d;
   color: white;
+  padding: 10px;
+  text-align: left;
 }
-/* Add transition to table rows for a smoother and faster background color change */
+
 tr {
-  padding: 10px 0; /* Add padding to create more space around the content */
-  position: relative; /* Ensure positioning context */
+  padding: 10px 0;
+  position: relative;
   z-index: 1;
   transition: background-color 0.2s ease;
 }
 
 tr:hover {
-  background-color: #5eb18c; /* Desired background color on hover */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  background-color: #5eb18c;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+thead th {
+  border: 0.6px solid #74c7a1;
+  padding: 10px;
+  text-indent: 1.2vw;
+}
+
+thead th:first-child {
+  border-left: none;
+}
+
+thead th:last-child {
+  border-right: none;
+}
+
+th,
+td {
+  border-bottom: 1px solid #04aa6d;
+}
+
+.main-table th {
+  cursor: pointer;
+}
+
+.sort-header {
+  position: relative;
+  cursor: pointer;
+  padding-right: 25px;
+}
+
+.sort-header::before {
+  content: url("/img/doubleArrow.png");
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sort-header.asc::before {
+  content: url("/img/upArrow.png");
+}
+
+.sort-header.desc::before {
+  content: url("/img/downArrow.png");
+}
+
+.sort-header.active-header {
+  font-weight: bold;
+}
+
+.sort-icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  display: none; /* Hidden by default */
+}
+
+.sort-header.active-header .sort-icon {
+  display: inline;
+}
+
+/* General table cell styling */
+.pokemon-cell {
+  padding: 10px;
+}
+
+.pokemon-cell img {
+  width: 50px;
+  height: auto;
+}
+
+.sort-icon {
+  width: 20px; /* Adjust size if needed */
+  height: 20px; /* Adjust size if needed */
+}
+
+.header-spacing {
+  position: relative;
+}
+
+.header-spacing .sort-icon {
+  position: absolute;
+  right: 10px; /* Adjust positioning if needed */
+  top: 50%; /* Adjust vertical alignment if needed */
+  transform: translateY(-50%); /* Center vertically */
 }

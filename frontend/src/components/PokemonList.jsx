@@ -48,7 +48,7 @@ function PokemonList() {
 
       setFilteredData(filtered)
     }
-  }, [data, searchTerm, filter]) // Correct dependency array
+  }, [data, searchTerm, filter])
 
   useEffect(() => {
     if (filteredData.length) {
@@ -85,12 +85,12 @@ function PokemonList() {
       })
       setFilteredData(sortedData)
     }
-  }, [sortConfig, filteredData]) // Correct dependency array
+  }, [sortConfig, filteredData])
 
   const handleSort = (key) => {
     let direction = "desc"
-    if (sortConfig.key === key && sortConfig.direction === "desc") {
-      direction = "asc"
+    if (sortConfig.key === key) {
+      direction = sortConfig.direction === "desc" ? "asc" : "desc"
     }
     setSortConfig({ key, direction })
   }
@@ -104,10 +104,13 @@ function PokemonList() {
 
   return (
     <div className="page-container">
+      <img src="" alt="" />
       <div className="side-content"></div>
       <div className="main-content">
         <div className="logo-container">
-          <h1>Pokédex</h1>
+          <div className="title-outline">
+            <h1 className="pixelify-sans-title">Pokédex</h1>
+          </div>
         </div>
 
         <div className="search-filter-container">
@@ -117,7 +120,7 @@ function PokemonList() {
             </label>
             <input
               type="text"
-              placeholder="Search Pokémon"
+              placeholder="Search Pokédex"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
@@ -143,67 +146,191 @@ function PokemonList() {
         <table className="main-table">
           <thead>
             <tr>
-              <th className="imgs"></th>
-              <th className="header-spacing" onClick={() => handleSort("id")}>
+              <th
+                className={`header-spacing ${
+                  sortConfig.key === "id" ? "active-header" : ""
+                }`}
+                onClick={() => handleSort("id")}
+              >
                 <p>#</p>
+                <img
+                  src={`/img/sortIcons/${
+                    sortConfig.key === "id"
+                      ? sortConfig.direction === "desc"
+                        ? "upArrow.png"
+                        : "downArrow.png"
+                      : "doubleArrow.png"
+                  }`}
+                  alt="sort"
+                  className="sort-icon"
+                />
               </th>
-              <th className="header-spacing" onClick={() => handleSort("name")}>
+              <th
+                className={`header-spacing ${
+                  sortConfig.key === "name" ? "active-header" : ""
+                }`}
+                onClick={() => handleSort("name")}
+              >
                 <p>Name</p>
+                <img
+                  src={`/img/sortIcons/${
+                    sortConfig.key === "name"
+                      ? sortConfig.direction === "desc"
+                        ? "upArrow.png"
+                        : "downArrow.png"
+                      : "doubleArrow.png"
+                  }`}
+                  alt="sort"
+                  className="sort-icon"
+                />
               </th>
               <th className="header-spacing">
                 <p>Type</p>
               </th>
               <th
-                className="header-spacing"
+                className={`header-spacing ${
+                  sortConfig.key === "Total" ? "active-header" : ""
+                }`}
                 onClick={() => handleSort("Total")}
               >
                 <p>Total</p>
-              </th>
-              <th className="header-spacing" onClick={() => handleSort("HP")}>
-                <p>HP</p>
+                <img
+                  src={`/img/sortIcons/${
+                    sortConfig.key === "Total"
+                      ? sortConfig.direction === "desc"
+                        ? "upArrow.png"
+                        : "downArrow.png"
+                      : "doubleArrow.png"
+                  }`}
+                  alt="sort"
+                  className="sort-icon"
+                />
               </th>
               <th
-                className="header-spacing"
+                className={`header-spacing ${
+                  sortConfig.key === "HP" ? "active-header" : ""
+                }`}
+                onClick={() => handleSort("HP")}
+              >
+                <p>HP</p>
+                <img
+                  src={`/img/sortIcons/${
+                    sortConfig.key === "HP"
+                      ? sortConfig.direction === "desc"
+                        ? "upArrow.png"
+                        : "downArrow.png"
+                      : "doubleArrow.png"
+                  }`}
+                  alt="sort"
+                  className="sort-icon"
+                />
+              </th>
+              <th
+                className={`header-spacing ${
+                  sortConfig.key === "Attack" ? "active-header" : ""
+                }`}
                 onClick={() => handleSort("Attack")}
               >
                 <p>Attack</p>
+                <img
+                  src={`/img/sortIcons/${
+                    sortConfig.key === "Attack"
+                      ? sortConfig.direction === "desc"
+                        ? "upArrow.png"
+                        : "downArrow.png"
+                      : "doubleArrow.png"
+                  }`}
+                  alt="sort"
+                  className="sort-icon"
+                />
               </th>
               <th
-                className="header-spacing"
+                className={`header-spacing ${
+                  sortConfig.key === "Defense" ? "active-header" : ""
+                }`}
                 onClick={() => handleSort("Defense")}
               >
                 <p>Defense</p>
+                <img
+                  src={`/img/sortIcons/${
+                    sortConfig.key === "Defense"
+                      ? sortConfig.direction === "desc"
+                        ? "upArrow.png"
+                        : "downArrow.png"
+                      : "doubleArrow.png"
+                  }`}
+                  alt="sort"
+                  className="sort-icon"
+                />
               </th>
               <th
-                className="header-spacing"
+                className={`header-spacing ${
+                  sortConfig.key === "SpAttack" ? "active-header" : ""
+                }`}
                 onClick={() => handleSort("SpAttack")}
               >
                 <p>Sp. Atk</p>
+                <img
+                  src={`/img/sortIcons/${
+                    sortConfig.key === "SpAttack"
+                      ? sortConfig.direction === "desc"
+                        ? "upArrow.png"
+                        : "downArrow.png"
+                      : "doubleArrow.png"
+                  }`}
+                  alt="sort"
+                  className="sort-icon"
+                />
               </th>
               <th
-                className="header-spacing"
+                className={`header-spacing ${
+                  sortConfig.key === "SpDefense" ? "active-header" : ""
+                }`}
                 onClick={() => handleSort("SpDefense")}
               >
                 <p>Sp. Def</p>
+                <img
+                  src={`/img/sortIcons/${
+                    sortConfig.key === "SpDefense"
+                      ? sortConfig.direction === "desc"
+                        ? "upArrow.png"
+                        : "downArrow.png"
+                      : "doubleArrow.png"
+                  }`}
+                  alt="sort"
+                  className="sort-icon"
+                />
               </th>
               <th
-                className="header-spacing"
+                className={`header-spacing ${
+                  sortConfig.key === "Speed" ? "active-header" : ""
+                }`}
                 onClick={() => handleSort("Speed")}
               >
                 <p>Speed</p>
+                <img
+                  src={`/img/sortIcons/${
+                    sortConfig.key === "Speed"
+                      ? sortConfig.direction === "desc"
+                        ? "frontend/public/img/upArrow.png"
+                        : "downArrow.png"
+                      : "frontend/public/img/doubleArrow.png"
+                  }`}
+                  alt="sort"
+                  className="sort-icon"
+                />
               </th>
             </tr>
           </thead>
           <tbody>
             {filteredData.map((pokemon) => (
               <tr key={pokemon.id}>
-                <td className="pokemon-image">
+                <td className="header-spacing pokemon-image id-img">
                   <img
                     src={getPokemonImageUrl(pokemon.id)}
                     alt={pokemon.name.english}
+                    className="id-img"
                   />
-                </td>
-                <td className="header-spacing">
                   <p>{pokemon.id}</p>
                 </td>
                 <td className="header-spacing">

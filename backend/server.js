@@ -6,6 +6,7 @@ const schema = require("./schema/schema.js")
 
 const app = express()
 
+// allow cross-origin requests
 app.use(cors())
 
 app.all(
