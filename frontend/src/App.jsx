@@ -4,16 +4,19 @@ import {
   ApolloProvider,
   InMemoryCache,
   gql,
+  useQuery,
 } from "@apollo/client"
+import React from "react"
+import { Routes, Route } from "react-router-dom"
 import PokemonList from "./components/PokemonList"
+import PokemonDetails from "./components/PokemonDetails"
 
 function App() {
   return (
-    <>
-      <div className="App">
-        <PokemonList />
-      </div>
-    </>
+    <Routes>
+      <Route path="/" element={<PokemonList />} />
+      <Route path="/:name" element={<PokemonDetails />} />
+    </Routes>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useQuery } from "@apollo/client"
 import { GET_ALL_POKEMON } from "../queries/queries"
+import { Link } from "react-router-dom"
 import "./PokemonList.css"
 
 function PokemonList() {
@@ -334,7 +335,9 @@ function PokemonList() {
                   <p>{pokemon.id}</p>
                 </td>
                 <td className="header-spacing">
-                  <p>{pokemon.name.english}</p>
+                  <Link key={pokemon.id} to={`/${pokemon.name}`}>
+                    <p>{pokemon.name.english}</p>
+                  </Link>
                 </td>
                 <td className="header-spacing">
                   {pokemon.type.map((type) => (
@@ -350,7 +353,7 @@ function PokemonList() {
                     </div>
                   ))}
                 </td>
-                <td className="header-spacing">
+                <td className="td-spacing td-center td-nums">
                   <p>
                     {pokemon.base.HP +
                       pokemon.base.Attack +
@@ -360,22 +363,22 @@ function PokemonList() {
                       pokemon.base.Speed}
                   </p>
                 </td>
-                <td className="header-spacing">
+                <td className="td-spacing td-center td-nums">
                   <p>{pokemon.base.HP}</p>
                 </td>
-                <td className="header-spacing">
+                <td className="td-spacing td-center td-nums">
                   <p>{pokemon.base.Attack}</p>
                 </td>
-                <td className="header-spacing">
+                <td className="td-spacing td-center td-nums">
                   <p>{pokemon.base.Defense}</p>
                 </td>
-                <td className="header-spacing">
+                <td className="td-spacing td-center td-nums">
                   <p>{pokemon.base.SpAttack}</p>
                 </td>
-                <td className="header-spacing">
+                <td className="td-spacing td-center td-nums">
                   <p>{pokemon.base.SpDefense}</p>
                 </td>
-                <td className="header-spacing">
+                <td className="td-spacing td-center td-nums">
                   <p>{pokemon.base.Speed}</p>
                 </td>
               </tr>
