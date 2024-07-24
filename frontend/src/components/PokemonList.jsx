@@ -335,7 +335,7 @@ function PokemonList() {
                   <p>{pokemon.id}</p>
                 </td>
                 <td className="header-spacing">
-                  <Link key={pokemon.id} to={`/${pokemon.name}`}>
+                  <Link to={`/pokemon/${pokemon.name.english}`}>
                     <p>{pokemon.name.english}</p>
                   </Link>
                 </td>
