@@ -10,6 +10,8 @@ function PokemonList() {
   const [filteredData, setFilteredData] = useState([])
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "desc" })
   const [filter, setFilter] = useState("")
+  const [visibleCount, setVisibleCount] = useState(50)
+  const maxItems = 50
 
   const getPokemonImageUrl = (id) => {
     const paddedId = id.toString().padStart(3, "0")
@@ -100,13 +102,17 @@ function PokemonList() {
     setFilter(event.target.value)
   }
 
+  const handleLoadMore = () => {
+    setVisibleCount((prevCount) => prevCount + maxItems)
+  }
+
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error: {error.message}</p>
 
   return (
     <div className="page-container">
       <img src="" alt="" />
-      <div className="side-content"></div>
+
       <div className="main-content">
         <div className="logo-container">
           <div className="title-outline">
@@ -148,7 +154,7 @@ function PokemonList() {
           <thead>
             <tr>
               <th
-                className={`header-spacing ${
+                className={`header-spacing td-nums ${
                   sortConfig.key === "id" ? "active-header" : ""
                 }`}
                 onClick={() => handleSort("id")}
@@ -167,7 +173,7 @@ function PokemonList() {
                 />
               </th>
               <th
-                className={`header-spacing ${
+                className={`header-spacing pokemon-name ${
                   sortConfig.key === "name" ? "active-header" : ""
                 }`}
                 onClick={() => handleSort("name")}
@@ -189,7 +195,7 @@ function PokemonList() {
                 <p>Type</p>
               </th>
               <th
-                className={`header-spacing ${
+                className={`header-spacing td-nums ${
                   sortConfig.key === "Total" ? "active-header" : ""
                 }`}
                 onClick={() => handleSort("Total")}
@@ -208,7 +214,7 @@ function PokemonList() {
                 />
               </th>
               <th
-                className={`header-spacing ${
+                className={`header-spacing td-nums ${
                   sortConfig.key === "HP" ? "active-header" : ""
                 }`}
                 onClick={() => handleSort("HP")}
@@ -227,7 +233,7 @@ function PokemonList() {
                 />
               </th>
               <th
-                className={`header-spacing ${
+                className={`header-spacing td-nums ${
                   sortConfig.key === "Attack" ? "active-header" : ""
                 }`}
                 onClick={() => handleSort("Attack")}
@@ -246,7 +252,7 @@ function PokemonList() {
                 />
               </th>
               <th
-                className={`header-spacing ${
+                className={`header-spacing td-nums ${
                   sortConfig.key === "Defense" ? "active-header" : ""
                 }`}
                 onClick={() => handleSort("Defense")}
@@ -265,7 +271,7 @@ function PokemonList() {
                 />
               </th>
               <th
-                className={`header-spacing ${
+                className={`header-spacing td-nums ${
                   sortConfig.key === "SpAttack" ? "active-header" : ""
                 }`}
                 onClick={() => handleSort("SpAttack")}
@@ -284,7 +290,7 @@ function PokemonList() {
                 />
               </th>
               <th
-                className={`header-spacing ${
+                className={`header-spacing td-nums ${
                   sortConfig.key === "SpDefense" ? "active-header" : ""
                 }`}
                 onClick={() => handleSort("SpDefense")}
@@ -303,7 +309,7 @@ function PokemonList() {
                 />
               </th>
               <th
-                className={`header-spacing ${
+                className={`header-spacing td-nums ${
                   sortConfig.key === "Speed" ? "active-header" : ""
                 }`}
                 onClick={() => handleSort("Speed")}
@@ -313,9 +319,9 @@ function PokemonList() {
                   src={`/img/sortIcons/${
                     sortConfig.key === "Speed"
                       ? sortConfig.direction === "desc"
-                        ? "frontend/public/img/upArrow.png"
+                        ? "upArrow.png"
                         : "downArrow.png"
-                      : "frontend/public/img/doubleArrow.png"
+                      : "doubleArrow.png"
                   }`}
                   alt="sort"
                   className="sort-icon"
@@ -324,22 +330,25 @@ function PokemonList() {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((pokemon) => (
+            {filteredData.slice(0, visibleCount).map((pokemon) => (
               <tr key={pokemon.id}>
-                <td className="header-spacing pokemon-image id-img">
+                <td className="table-data ">
                   <img
                     src={getPokemonImageUrl(pokemon.id)}
                     alt={pokemon.name.english}
-                    className="id-img"
+                    className="pokemon-image id-img"
                   />
-                  <p>{pokemon.id}</p>
+                  {pokemon.id}
                 </td>
-                <td className="header-spacing">
-                  <Link to={`/pokemon/${pokemon.name.english}`}>
+                <td className="td-spacing td-center">
+                  <Link
+                    className="styled-link"
+                    to={`/pokemon/${pokemon.name.english}`}
+                  >
                     <p>{pokemon.name.english}</p>
                   </Link>
                 </td>
-                <td className="header-spacing">
+                <td>
                   {pokemon.type.map((type) => (
                     <div className="tooltip" key={type}>
                       <img
@@ -353,40 +362,40 @@ function PokemonList() {
                     </div>
                   ))}
                 </td>
-                <td className="td-spacing td-center td-nums">
-                  <p>
-                    {pokemon.base.HP +
-                      pokemon.base.Attack +
-                      pokemon.base.Defense +
-                      pokemon.base.SpAttack +
-                      pokemon.base.SpDefense +
-                      pokemon.base.Speed}
-                  </p>
+                <td className="td-spacing td-center">
+                  {pokemon.base.HP +
+                    pokemon.base.Attack +
+                    pokemon.base.Defense +
+                    pokemon.base.SpAttack +
+                    pokemon.base.SpDefense +
+                    pokemon.base.Speed}
                 </td>
                 <td className="td-spacing td-center td-nums">
-                  <p>{pokemon.base.HP}</p>
+                  {pokemon.base.HP}
                 </td>
                 <td className="td-spacing td-center td-nums">
-                  <p>{pokemon.base.Attack}</p>
+                  {pokemon.base.Attack}
                 </td>
                 <td className="td-spacing td-center td-nums">
-                  <p>{pokemon.base.Defense}</p>
+                  {pokemon.base.Defense}
                 </td>
                 <td className="td-spacing td-center td-nums">
-                  <p>{pokemon.base.SpAttack}</p>
+                  {pokemon.base.SpAttack}
                 </td>
                 <td className="td-spacing td-center td-nums">
-                  <p>{pokemon.base.SpDefense}</p>
+                  {pokemon.base.SpDefense}
                 </td>
                 <td className="td-spacing td-center td-nums">
-                  <p>{pokemon.base.Speed}</p>
+                  {pokemon.base.Speed}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <button onClick={handleLoadMore} className="load-more-button">
+          Load More
+        </button>
       </div>
-      <div className="side-content"></div>
     </div>
   )
 }
