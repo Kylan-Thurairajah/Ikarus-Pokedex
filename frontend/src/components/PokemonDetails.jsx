@@ -1,10 +1,8 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@apollo/client"
-import { GET_ALL_POKEMON } from "../queries/queries" // Ensure this is the correct path
-
+import { GET_ALL_POKEMON } from "../queries/queries"
 import "./PokemonDetails.css"
-import PokemonStatsTable from "./PokemonStatsTable"
 
 function PokemonDetails() {
   const { name } = useParams()

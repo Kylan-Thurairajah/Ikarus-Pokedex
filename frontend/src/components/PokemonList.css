@@ -1,6 +1,6 @@
 .page-container {
   display: flex;
-  justify-content: center; /* Center the main content */
+  justify-content: center;
   width: 100%;
   flex-grow: 1;
   height: 100vh;
@@ -8,6 +8,7 @@
   background-size: 2.3vw;
   background-attachment: fixed;
   overflow-x: hidden;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .main-content {
@@ -18,7 +19,10 @@
   box-sizing: border-box;
   padding-bottom: 15vh;
   border-radius: 3vw;
-  margin: 0 auto; /* Centers the container */
+  margin: 0 auto;
+}
+.table-left {
+  margin: 0 0 0 0;
 }
 
 .logo-container {
@@ -57,12 +61,11 @@
 
 .search-input:hover,
 .search-input:focus {
-  border-color: rgb(0, 0, 0); /* Border color when hovered or focused */
-  cursor: pointer; /* Optional: change cursor to pointer */
+  border-color: rgb(0, 0, 0);
 }
 
 .filter-label {
-  margin: 0 10px; /* Space between search input and filter label */
+  margin: 0 10px;
 }
 
 .filter-select {
@@ -107,9 +110,9 @@
 }
 
 .main-table {
-  width: calc(100% - 40px); /* Adjust for spacing if needed */
-  margin: 0 auto; /* Center the table */
-  border-collapse: collapse; /* Remove gaps between cells */
+  width: calc(100% - 40px);
+  margin: 0 auto;
+  border-collapse: collapse;
 }
 
 th {
@@ -188,7 +191,7 @@ td {
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 100%; /* Position above the tooltip trigger */
+  bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
   margin-bottom: 10px;
@@ -204,7 +207,7 @@ td {
   transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
-  border-color: black transparent transparent transparent; /* Arrow pointing down */
+  border-color: black transparent transparent transparent;
 }
 
 .tooltip:hover .tooltiptext {
@@ -213,7 +216,7 @@ td {
 }
 
 .header-spacing {
-  padding: 0.1vh; /* Adjusted padding */
+  padding: 0.1vh;
   text-align: left;
 }
 
@@ -250,7 +253,7 @@ td {
   width: 16px;
   height: 16px;
   margin-left: 8px;
-  display: none; /* Hidden by default */
+  display: none;
 }
 
 .sort-header.active-header .sort-icon {
@@ -267,8 +270,8 @@ td {
 }
 
 .sort-icon {
-  width: 20px; /* Adjust size if needed */
-  height: 20px; /* Adjust size if needed */
+  width: 20px;
+  height: 20px;
 }
 
 .filter-select,
@@ -296,19 +299,19 @@ td {
 }
 
 .sort-icon {
-  display: inline-block; /* or block */
-  width: 0.6vw; /* Adjust as needed */
-  height: auto; /* Maintain aspect ratio */
+  display: inline-block;
+  width: 0.6vw;
+  height: auto;
 }
 
 th {
-  position: relative; /* or other positioning values */
+  position: relative;
 }
 
 .sort-icon {
-  position: absolute; /* or relative, based on your design */
-  top: 50%; /* Adjust as needed */
-  right: 10px; /* Adjust as needed */
+  position: absolute;
+  top: 50%;
+  right: 10px;
   transform: translateY(-50%);
 }
 .styled-link {
@@ -322,4 +325,32 @@ th {
   color: black;
   text-decoration: underline;
   font-weight: 420;
+  cursor: pointer;
+}
+
+.page-container {
+  overflow: hidden;
+}
+
+.table-container {
+  transition: transform 0.5s ease;
+  transform: translateX(0);
+}
+
+.table-container.slide-left {
+  transform: translateX(-24%);
+}
+/* Add this CSS */
+.page-container {
+  width: 100%;
+  position: relative;
+}
+
+.main-content {
+  width: 76%;
+  transition: transform 0.5s ease;
+}
+
+.slide-left .main-content {
+  transform: translateX(-13%);
 }

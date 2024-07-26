@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useQuery } from "@apollo/client"
 import { GET_ALL_POKEMON } from "../queries/queries"
-import { Link } from "react-router-dom"
 import "./PokemonList.css"
 
 function PokemonList() {
@@ -12,11 +11,44 @@ function PokemonList() {
   const [filter, setFilter] = useState("")
   const [visibleCount, setVisibleCount] = useState(50)
   const maxItems = 50
+  const [isSliding, setIsSliding] = useState(false)
+
+  const handleRowClick = () => {
+    setIsSliding((prevState) => !prevState)
+  }
 
   const getPokemonImageUrl = (id) => {
     const paddedId = id.toString().padStart(3, "0")
     return `/img/sprites/${paddedId}MS.png`
   }
+
+  const TableHeader = ({
+    label,
+    sortKey,
+    sortConfig,
+    handleSort,
+    extraClass,
+  }) => (
+    <th
+      className={`header-spacing ${extraClass} ${
+        sortKey === sortConfig.key ? "active-header" : ""
+      }`}
+      onClick={() => handleSort(sortKey)}
+    >
+      <p>{label}</p>
+      <img
+        src={`/img/sortIcons/${
+          sortKey === sortConfig.key
+            ? sortConfig.direction === "desc"
+              ? "upArrow.png"
+              : "downArrow.png"
+            : "doubleArrow.png"
+        }`}
+        alt="sort"
+        className="sort-icon"
+      />
+    </th>
+  )
 
   const pokemonTypes = [
     "Normal",
@@ -110,291 +142,178 @@ function PokemonList() {
   if (error) return <p>Error: {error.message}</p>
 
   return (
-    <div className="page-container">
-      <img src="" alt="" />
-
-      <div className="main-content">
-        <div className="logo-container">
-          <div className="title-outline">
-            <h1 className="pixelify-sans-title">Pokédex</h1>
+    <div className={`page-container ${isSliding ? "slide-left" : ""}`}>
+      <div className="page-container">
+        <div className="main-content">
+          <div className="logo-container">
+            <div className="title-outline">
+              <h1 className="pixelify-sans-title">Pokédex</h1>
+            </div>
           </div>
-        </div>
 
-        <div className="search-filter-container">
-          <span>
-            <label htmlFor="searchFilter" className="filter-label">
-              Name:
-            </label>
-            <input
-              type="text"
-              placeholder="Search Pokédex"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-            />
-            <label htmlFor="typeSelect" className="filter-label">
-              Filter by Type:
-            </label>
-            <select
-              id="typeSelect"
-              value={filter}
-              onChange={handleFilterChange}
-              className="filter-select"
-            >
-              <option value="">- All -</option>
-              {pokemonTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
-          </span>
-        </div>
-        <table className="main-table">
-          <thead>
-            <tr>
-              <th
-                className={`header-spacing td-nums ${
-                  sortConfig.key === "id" ? "active-header" : ""
-                }`}
-                onClick={() => handleSort("id")}
+          <div className="search-filter-container">
+            <span>
+              <label htmlFor="searchFilter" className="filter-label">
+                Name:
+              </label>
+              <input
+                type="text"
+                placeholder="Search Pokédex"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+              <label htmlFor="typeSelect" className="filter-label">
+                Filter by Type:
+              </label>
+              <select
+                id="typeSelect"
+                value={filter}
+                onChange={handleFilterChange}
+                className="filter-select"
               >
-                <p>#</p>
-                <img
-                  src={`/img/sortIcons/${
-                    sortConfig.key === "id"
-                      ? sortConfig.direction === "desc"
-                        ? "upArrow.png"
-                        : "downArrow.png"
-                      : "doubleArrow.png"
-                  }`}
-                  alt="sort"
-                  className="sort-icon"
+                <option value="">- All -</option>
+                {pokemonTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </span>
+          </div>
+
+          <table className="main-table">
+            <thead>
+              <tr>
+                <TableHeader
+                  label="#"
+                  sortKey="id"
+                  sortConfig={sortConfig}
+                  handleSort={handleSort}
+                  extraClass="td-nums"
                 />
-              </th>
-              <th
-                className={`header-spacing pokemon-name ${
-                  sortConfig.key === "name" ? "active-header" : ""
-                }`}
-                onClick={() => handleSort("name")}
-              >
-                <p>Name</p>
-                <img
-                  src={`/img/sortIcons/${
-                    sortConfig.key === "name"
-                      ? sortConfig.direction === "desc"
-                        ? "upArrow.png"
-                        : "downArrow.png"
-                      : "doubleArrow.png"
-                  }`}
-                  alt="sort"
-                  className="sort-icon"
+                <TableHeader
+                  label="Name"
+                  sortKey="name"
+                  sortConfig={sortConfig}
+                  handleSort={handleSort}
+                  extraClass="pokemon-name"
                 />
-              </th>
-              <th className="header-spacing">
-                <p>Type</p>
-              </th>
-              <th
-                className={`header-spacing td-nums ${
-                  sortConfig.key === "Total" ? "active-header" : ""
-                }`}
-                onClick={() => handleSort("Total")}
-              >
-                <p>Total</p>
-                <img
-                  src={`/img/sortIcons/${
-                    sortConfig.key === "Total"
-                      ? sortConfig.direction === "desc"
-                        ? "upArrow.png"
-                        : "downArrow.png"
-                      : "doubleArrow.png"
-                  }`}
-                  alt="sort"
-                  className="sort-icon"
+                <th className="header-spacing">
+                  <p>Type</p>
+                </th>
+                <TableHeader
+                  label="Total"
+                  sortKey="Total"
+                  sortConfig={sortConfig}
+                  handleSort={handleSort}
+                  extraClass="td-nums"
                 />
-              </th>
-              <th
-                className={`header-spacing td-nums ${
-                  sortConfig.key === "HP" ? "active-header" : ""
-                }`}
-                onClick={() => handleSort("HP")}
-              >
-                <p>HP</p>
-                <img
-                  src={`/img/sortIcons/${
-                    sortConfig.key === "HP"
-                      ? sortConfig.direction === "desc"
-                        ? "upArrow.png"
-                        : "downArrow.png"
-                      : "doubleArrow.png"
-                  }`}
-                  alt="sort"
-                  className="sort-icon"
+                <TableHeader
+                  label="HP"
+                  sortKey="HP"
+                  sortConfig={sortConfig}
+                  handleSort={handleSort}
+                  extraClass="td-nums"
                 />
-              </th>
-              <th
-                className={`header-spacing td-nums ${
-                  sortConfig.key === "Attack" ? "active-header" : ""
-                }`}
-                onClick={() => handleSort("Attack")}
-              >
-                <p>Attack</p>
-                <img
-                  src={`/img/sortIcons/${
-                    sortConfig.key === "Attack"
-                      ? sortConfig.direction === "desc"
-                        ? "upArrow.png"
-                        : "downArrow.png"
-                      : "doubleArrow.png"
-                  }`}
-                  alt="sort"
-                  className="sort-icon"
+                <TableHeader
+                  label="Attack"
+                  sortKey="Attack"
+                  sortConfig={sortConfig}
+                  handleSort={handleSort}
+                  extraClass="td-nums"
                 />
-              </th>
-              <th
-                className={`header-spacing td-nums ${
-                  sortConfig.key === "Defense" ? "active-header" : ""
-                }`}
-                onClick={() => handleSort("Defense")}
-              >
-                <p>Defense</p>
-                <img
-                  src={`/img/sortIcons/${
-                    sortConfig.key === "Defense"
-                      ? sortConfig.direction === "desc"
-                        ? "upArrow.png"
-                        : "downArrow.png"
-                      : "doubleArrow.png"
-                  }`}
-                  alt="sort"
-                  className="sort-icon"
+                <TableHeader
+                  label="Defense"
+                  sortKey="Defense"
+                  sortConfig={sortConfig}
+                  handleSort={handleSort}
+                  extraClass="td-nums"
                 />
-              </th>
-              <th
-                className={`header-spacing td-nums ${
-                  sortConfig.key === "SpAttack" ? "active-header" : ""
-                }`}
-                onClick={() => handleSort("SpAttack")}
-              >
-                <p>Sp. Atk</p>
-                <img
-                  src={`/img/sortIcons/${
-                    sortConfig.key === "SpAttack"
-                      ? sortConfig.direction === "desc"
-                        ? "upArrow.png"
-                        : "downArrow.png"
-                      : "doubleArrow.png"
-                  }`}
-                  alt="sort"
-                  className="sort-icon"
+                <TableHeader
+                  label="Sp. Atk"
+                  sortKey="SpAttack"
+                  sortConfig={sortConfig}
+                  handleSort={handleSort}
+                  extraClass="td-nums"
                 />
-              </th>
-              <th
-                className={`header-spacing td-nums ${
-                  sortConfig.key === "SpDefense" ? "active-header" : ""
-                }`}
-                onClick={() => handleSort("SpDefense")}
-              >
-                <p>Sp. Def</p>
-                <img
-                  src={`/img/sortIcons/${
-                    sortConfig.key === "SpDefense"
-                      ? sortConfig.direction === "desc"
-                        ? "upArrow.png"
-                        : "downArrow.png"
-                      : "doubleArrow.png"
-                  }`}
-                  alt="sort"
-                  className="sort-icon"
+                <TableHeader
+                  label="Sp. Def"
+                  sortKey="SpDefense"
+                  sortConfig={sortConfig}
+                  handleSort={handleSort}
+                  extraClass="td-nums"
                 />
-              </th>
-              <th
-                className={`header-spacing td-nums ${
-                  sortConfig.key === "Speed" ? "active-header" : ""
-                }`}
-                onClick={() => handleSort("Speed")}
-              >
-                <p>Speed</p>
-                <img
-                  src={`/img/sortIcons/${
-                    sortConfig.key === "Speed"
-                      ? sortConfig.direction === "desc"
-                        ? "upArrow.png"
-                        : "downArrow.png"
-                      : "doubleArrow.png"
-                  }`}
-                  alt="sort"
-                  className="sort-icon"
+                <TableHeader
+                  label="Speed"
+                  sortKey="Speed"
+                  sortConfig={sortConfig}
+                  handleSort={handleSort}
+                  extraClass="td-nums"
                 />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.slice(0, visibleCount).map((pokemon) => (
-              <tr key={pokemon.id}>
-                <td className="table-data ">
-                  <img
-                    src={getPokemonImageUrl(pokemon.id)}
-                    alt={pokemon.name.english}
-                    className="pokemon-image id-img"
-                  />
-                  {pokemon.id}
-                </td>
-                <td className="td-spacing td-center">
-                  <Link
-                    className="styled-link"
-                    to={`/pokemon/${pokemon.name.english}`}
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.slice(0, visibleCount).map((pokemon) => (
+                <tr key={pokemon.id}>
+                  <td className="table-data">
+                    <img
+                      src={getPokemonImageUrl(pokemon.id)}
+                      alt={pokemon.name.english}
+                      className="pokemon-image id-img"
+                    />
+                    {pokemon.id}
+                  </td>
+                  <td
+                    className="td-spacing td-center styled-link"
+                    onClick={handleRowClick}
                   >
                     <p>{pokemon.name.english}</p>
-                  </Link>
-                </td>
-                <td>
-                  {pokemon.type.map((type) => (
-                    <div className="tooltip" key={type}>
-                      <img
-                        src={`/img/type/${type}.png`}
-                        alt={type}
-                        className="type-icon"
-                      />
-                      <span className="tooltiptext">
-                        <p>{type}</p>
-                      </span>
-                    </div>
+                  </td>
+                  <td>
+                    {pokemon.type.map((type) => (
+                      <div className="tooltip" key={type}>
+                        <img
+                          src={`/img/type/${type}.png`}
+                          alt={type}
+                          className="type-icon"
+                        />
+                        <span className="tooltiptext">
+                          <p>{type}</p>
+                        </span>
+                      </div>
+                    ))}
+                  </td>
+                  <td className="td-spacing td-center td-nums">
+                    {pokemon.base.HP +
+                      pokemon.base.Attack +
+                      pokemon.base.Defense +
+                      pokemon.base.SpAttack +
+                      pokemon.base.SpDefense +
+                      pokemon.base.Speed}
+                  </td>
+                  {[
+                    "HP",
+                    "Attack",
+                    "Defense",
+                    "SpAttack",
+                    "SpDefense",
+                    "Speed",
+                  ].map((stat) => (
+                    <td key={stat} className="td-spacing td-center td-nums">
+                      {pokemon.base[stat]}
+                    </td>
                   ))}
-                </td>
-                <td className="td-spacing td-center">
-                  {pokemon.base.HP +
-                    pokemon.base.Attack +
-                    pokemon.base.Defense +
-                    pokemon.base.SpAttack +
-                    pokemon.base.SpDefense +
-                    pokemon.base.Speed}
-                </td>
-                <td className="td-spacing td-center td-nums">
-                  {pokemon.base.HP}
-                </td>
-                <td className="td-spacing td-center td-nums">
-                  {pokemon.base.Attack}
-                </td>
-                <td className="td-spacing td-center td-nums">
-                  {pokemon.base.Defense}
-                </td>
-                <td className="td-spacing td-center td-nums">
-                  {pokemon.base.SpAttack}
-                </td>
-                <td className="td-spacing td-center td-nums">
-                  {pokemon.base.SpDefense}
-                </td>
-                <td className="td-spacing td-center td-nums">
-                  {pokemon.base.Speed}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <button onClick={handleLoadMore} className="load-more-button">
-          Load More
-        </button>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="load-more-container">
+            <button className="load-more-button" onClick={handleLoadMore}>
+              Load More
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )
