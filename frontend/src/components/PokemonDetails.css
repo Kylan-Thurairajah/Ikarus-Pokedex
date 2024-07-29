@@ -1,105 +1,147 @@
-.page-container {
+.close-button img {
+  width: 1.7vw;
+  height: auto;
+  cursor: pointer;
+  margin: 2vh 14vw 1.9vh;
+}
+
+.details-text-info {
+  margin: 3vh 0 0 1.5vw;
+  color: black;
+}
+
+.details-text-info p {
+  margin: 0.5vh 0 0;
+  color: black;
+}
+
+.header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e4e4e4;
+  padding: 0 2vw;
   width: 100%;
-  flex-grow: 1;
-  height: 100%;
-  background: url("/img/grass.jpg") repeat;
-  background-size: 2.3vw;
-  background-attachment: fixed;
-  z-index: 1;
-}
-
-.side-content {
-  display: flex;
-  flex-direction: column;
-  width: 12%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.main-content-d {
-  display: flex;
-  flex-direction: column;
-  width: 66%;
-  background-color: #a4c6b7;
   box-sizing: border-box;
-  flex-grow: 1;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 0.5vh;
-  padding-bottom: 15vh;
-  border-top-left-radius: 2.5vw;
-  border-top-right-radius: 2.5vw;
-  border-bottom-left-radius: 2.5vw;
-  border-bottom-right-radius: 2.5vw;
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-  background-color: #9bd1b8;
 }
 
-.semi-circle {
-  position: absolute;
-  top: -20%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 0;
-  background: url("/img/type/grass.png") no-repeat center;
-  background-size: cover;
-  width: 50vw;
-  height: 50vh;
-  border-radius: 50%;
-  display: block;
+.header h2 {
+  margin-right: auto;
+  color: white;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2vh 2.05vh 0 0;
+  background-color: white;
+  border-radius: 1.5vh;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 0.9em;
+  height: 4.7vh;
+  width: auto;
+  z-index: 1;
+}
+
+.badge-icon {
+  width: 1.5vw;
+  height: auto;
+  margin: 0 0.3vw 0 0.5vw;
+  z-index: 1;
+}
+
+.badge-text {
+  font-size: 0.9em;
+  color: #333;
+  text-align: center;
+  z-index: 1;
+}
+
+.badge-container {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  margin-top: 1vh;
+  margin-left: 1vw;
 }
 
 .pokemon-gif {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: block;
+  margin: 0 2vw;
   z-index: 1;
+  height: 14vh;
   width: auto;
-  min-height: 12vh;
+
+  max-width: 18vw;
 }
 
-.vitals-table {
-  width: 100%;
-  border-collapse: collapse;
+hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  opacity: 1.5;
 }
 
-.vitals-table th,
-.vitals-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+.top-text-section {
+  margin: 0.5vh 0 0 1vw;
+  padding: 0;
+  color: black;
 }
 
-.vitals-table th {
-  background-color: #f2f2f2;
-  text-align: left;
-}
-
-.cell-num {
-  text-align: right;
-}
-
-.cell-barchart {
-  width: 100px;
-  position: relative;
-}
-
-.barchart-bar {
-  height: 10px;
-  background-color: #4caf50;
-}
-
-.barchart-rank-3 {
-  background-color: #f39c12;
-}
-
-.barchart-rank-4 {
-  background-color: #e74c3c;
-}
-
-.cell-total {
+.top-text-section h3 {
+  margin: 0;
+  font-size: 2em;
   font-weight: bold;
+  color: #333;
+}
+
+.top-text-section h4 {
+  margin: 0.5vh 0 0;
+  font-size: 1.5em;
+  font-weight: normal;
+  color: #777;
+}
+
+.graph {
+  margin: 4vh 1vw 0;
+}
+
+.graph h4 {
+  margin: auto;
+}
+
+.switch-arrow {
+  position: absolute;
+  width: 2vw;
+  height: auto;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  z-index: 2;
+}
+
+.switch-arrow.left-arrow {
+  left: 1vw;
+}
+
+.switch-arrow.right-arrow {
+  right: 1vw;
+}
+
+.switch-arrow:hover {
+  transform: translateY(-50%) scale(1.1);
+  opacity: 0.8;
+}
+
+.switch-arrow:active {
+  transform: translateY(-50%) scale(0.9);
+  opacity: 1;
+}
+
+.pokemon-gif-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5vh 0;
+  padding: 0 9vw;
 }

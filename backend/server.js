@@ -6,9 +6,10 @@ const schema = require("./schema/schema.js")
 
 const app = express()
 
-// allow cross-origin requests
+// Allow cross-origin requests
 app.use(cors())
 
+// Handle GraphQL requests at the /graphql endpoint
 app.all(
   "/graphql",
   createHandler({
@@ -16,11 +17,13 @@ app.all(
   })
 )
 
+// Ruru for testing
 app.get("/", (req, res) => {
   res.type("html")
   res.end(ruruHTML({ endpoint: "/graphql" }))
 })
 
+// Start the server and listen on port 4000
 app.listen(4000, () => {
   console.log("Running a GraphQL API server at http://localhost:4000/graphql")
 })
