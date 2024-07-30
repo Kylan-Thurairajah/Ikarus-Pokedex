@@ -9,7 +9,7 @@ const app = express()
 // Allow cross-origin requests
 app.use(cors())
 
-// Handle GraphQL requests at the /graphql endpoint
+// Handle GraphQL HTTP GET requests at the /graphql endpoint 
 app.all(
   "/graphql",
   createHandler({
